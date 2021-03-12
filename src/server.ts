@@ -19,7 +19,6 @@ app.get("/filteredimage", async ( req, res) => {
 
    let { image_url } = req.query
 
-   console.log(image_url)
    
    if (!image_url) {
      return res.status(400).send('provide an image url')
