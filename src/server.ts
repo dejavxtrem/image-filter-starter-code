@@ -26,19 +26,10 @@ app.get("/filteredimage", async ( req, res) => {
 
    let filteredpath = await filterImageFromURL(image_url)
    
-    res.status(200).sendFile(filteredpath)
-   
-    const createArray = [...filteredpath]
-
-    try {
-      await deleteLocalFiles(createArray)
-    }
-    catch(error){
-       console.log(error)
-    }
-    
-  
-     
+    res.status(200).sendFile(filteredpath, (f) => {
+      deleteLocalFiles([filteredpath])
+    })
+      
 })
 
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
