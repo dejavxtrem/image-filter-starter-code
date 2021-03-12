@@ -25,10 +25,18 @@ app.get("/filteredimage", async ( req, res) => {
    }
 
    let filteredpath = await filterImageFromURL(image_url)
-
-  
-   return res.status(200).sendFile(filteredpath)
    
+    res.status(200).sendFile(filteredpath)
+   
+    const createArray = [...filteredpath]
+
+    try {
+      await deleteLocalFiles(createArray)
+    }
+    catch(error){
+       console.log(error)
+    }
+    
   
      
 })
