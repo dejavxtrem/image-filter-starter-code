@@ -14,23 +14,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   app.use(bodyParser.json());
 
 
-app.get("/filteredimage", async ( req, res) => {
-
-
-   let { image_url } = req.query
-
-   
-   if (!image_url) {
-     return res.status(400).send('provide an image url')
-   }
-
-   let filteredpath = await filterImageFromURL(image_url)
-   
-    res.status(200).sendFile(filteredpath, (f) => {
-      deleteLocalFiles([filteredpath])
-    })
-      
-})
 
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
@@ -49,6 +32,25 @@ app.get("/filteredimage", async ( req, res) => {
   /**************************************************************************** */
 
  
+app.get("/filteredimage", async ( req, res) => {
+
+
+  let { image_url } = req.query
+
+  
+  if (!image_url) {
+    return res.status(400).send('provide an image url')
+  }
+
+  let filteredpath = await filterImageFromURL(image_url)
+  
+   res.status(200).sendFile(filteredpath, (f) => {
+     deleteLocalFiles([filteredpath])
+   })
+     
+})
+
+
   
   // Root Endpoint
   // Displays a simple message to the user
